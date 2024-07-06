@@ -26,6 +26,10 @@ func main() {
 			fmt.Sprintf("%d x %d = %d", number, 10, number*10))
 	})
 
+	app.Get("/new", func(c *fiber.Ctx) error {
+		return c.Status(fiber.StatusOK).SendString("new")
+	})
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "3000"

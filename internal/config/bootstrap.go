@@ -1,6 +1,8 @@
 package config
 
 import (
+	"go-shopping/database/migrator"
+
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"github.com/sirupsen/logrus"
@@ -17,5 +19,6 @@ type ConfigBootstrap struct {
 }
 
 func Bootstrap(cfgBootstrap *ConfigBootstrap) {
-
+	migrator.Drop(cfgBootstrap.DB, cfgBootstrap.Logger)
+	migrator.Create(cfgBootstrap.DB, cfgBootstrap.Logger)
 }

@@ -23,10 +23,6 @@ func main() {
 		Validator: validator,
 	})
 
-	port := viperCfg.GetInt("APP_PORT")
-	if port == 0 {
-		port = viperCfg.GetInt("PORT")
-	}
-
+	port := viperCfg.GetInt("PORT")
 	app.Listen(fmt.Sprintf(":%d", port))
 }

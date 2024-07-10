@@ -8,9 +8,5 @@ type User struct {
 	Name     string
 	Email    string
 	Password string
-	Roles    []*Role `gorm:"many2many:240708gos_user_roles"`
-}
-
-func (e *User) TableName() string {
-	return "240708gos_users"
+	Roles    []*Role `gorm:"many2many:user_roles"`
 }

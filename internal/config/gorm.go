@@ -9,6 +9,7 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"gorm.io/gorm/schema"
 )
 
 type logrusWriter struct {
@@ -34,7 +35,13 @@ func NewDatabase(viperCfg *viper.Viper, log *logrus.Logger) *gorm.DB {
 		port,
 		ssl)
 
+	projectId := viperCfg.GetString("PROJECT_ID")
+	envType := viperCfg.GetString("ENV")
+
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+		NamingStrategy: schema.NamingStrategy{
+			TablePrefix: fmt.Sprintf("%s_%s_", projectId, envType),
+		},
 		Logger: logger.New(&logrusWriter{Logger: log}, logger.Config{
 			SlowThreshold:             5 * time.Second,
 			Colorful:                  true,

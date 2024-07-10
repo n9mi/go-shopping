@@ -17,7 +17,7 @@ func NewViperConfig() (*viper.Viper, error) {
 		viperCfg.SetConfigFile(".env")
 		viperCfg.AddConfigPath("./")
 
-		if err != nil {
+		if err := viperCfg.ReadInConfig(); err != nil {
 			return nil, err
 		}
 	}

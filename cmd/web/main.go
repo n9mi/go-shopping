@@ -3,37 +3,30 @@ package main
 import (
 	"fmt"
 	"go-shopping/internal/config"
-	"os"
-
-	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
-	app := fiber.New()
 	viperCfg, err := config.NewViperConfig()
 	if err != nil {
 		panic(err)
 	}
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.Status(fiber.StatusOK).SendString("Hello, world!")
+	app := config.NewFiber(viperCfg)
+	log := config.NewLogrus(viperCfg)
+	db := config.NewDatabase(viperCfg, log)
+	validator := config.NewValidator()
+
+	config.Bootstrap(&config.ConfigBootstrap{
+		App:       app,
+		Logger:    log,
+		DB:        db,
+		Validator: validator,
 	})
 
-	app.Get("/check", func(c *fiber.Ctx) error {
-		number := viperCfg.GetInt("NUMBER")
-
-		return c.Status(fiber.StatusOK).SendString(
-			fmt.Sprintf("%d x %d = %d", number, 10, number*10))
-	})
-
-	app.Get("/new", func(c *fiber.Ctx) error {
-		return c.Status(fiber.StatusOK).SendString("new")
-	})
-
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "3000"
+	port := viperCfg.GetInt("APP_PORT")
+	if port == 0 {
+		port = viperCfg.GetInt("PORT")
 	}
 
-	app.Listen(fmt.Sprintf(":%s", port))
+	app.Listen(fmt.Sprintf(":%d", port))
 }

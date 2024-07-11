@@ -4,9 +4,11 @@ import "gorm.io/gorm"
 
 type User struct {
 	gorm.Model
-	ID       string `gorm:"primaryKey"`
-	Name     string
-	Email    string
-	Password string
-	Roles    []*Role `gorm:"many2many:user_roles"`
+	ID                  string `gorm:"primaryKey"`
+	Name                string
+	Email               string
+	Password            string
+	Roles               []*Role              `gorm:"many2many:user_roles"`
+	UserPaymentAccounts []UserPaymentAccount `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Orders              []Order              `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }

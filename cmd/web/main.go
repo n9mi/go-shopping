@@ -17,6 +17,7 @@ func main() {
 	validator := config.NewValidator()
 
 	config.Bootstrap(&config.ConfigBootstrap{
+		ViperCfg:  viperCfg,
 		App:       app,
 		Logger:    log,
 		DB:        db,

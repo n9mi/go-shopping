@@ -2,6 +2,10 @@ package repository
 
 import "go-shopping/internal/entity"
 
-type UserAccountRepository struct {
+type UserPaymentAccountRepository struct {
 	Repository Repository[entity.UserPaymentAccount]
+}
+
+func NewUserPaymentAccountRepository() *UserPaymentAccountRepository {
+	return new(UserPaymentAccountRepository)
 }

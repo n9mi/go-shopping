@@ -1,8 +1,6 @@
 package config
 
 import (
-	"go-shopping/database/migrator"
-	"go-shopping/database/seeder"
 	"go-shopping/internal/delivery/http/controller"
 	"go-shopping/internal/delivery/http/route"
 	"go-shopping/internal/repository"
@@ -41,7 +39,7 @@ func Bootstrap(cfgBootstrap *ConfigBootstrap) {
 	}
 	routeConfig.Setup()
 
-	migrator.Drop(cfgBootstrap.DB, cfgBootstrap.Logger, cfgBootstrap.ViperCfg)
-	migrator.Create(cfgBootstrap.DB, cfgBootstrap.Logger)
-	seeder.Seed(cfgBootstrap.DB, cfgBootstrap.Logger)
+	// migrator.Drop(cfgBootstrap.DB, cfgBootstrap.Logger, cfgBootstrap.ViperCfg)
+	// migrator.Create(cfgBootstrap.DB, cfgBootstrap.Logger)
+	// seeder.Seed(cfgBootstrap.DB, cfgBootstrap.Logger)
 }

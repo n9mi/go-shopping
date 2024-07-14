@@ -26,7 +26,17 @@ jobs:
       - name: Test
         run: go test -v ./...
         env:
-          FOO: ${{ secrets.FOO }}
+          ENV: ${{ secrets.ENV }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+          PORT: ${{ secrets.PORT }}
+          APP_NAME: ${{ secrets.APP_NAME }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_SSL_MODE: ${{ secrets.DB_SSL_MODE }}
+          LOG_LEVEL: ${{ secrets.LOG_LEVEL }}
 
   build-and-publish:
     runs-on: ubuntu-latest

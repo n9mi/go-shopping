@@ -1,8 +1,6 @@
 package test
 
 import (
-	"go-shopping/database/migrator"
-	"go-shopping/database/seeder"
 	"go-shopping/internal/config"
 
 	"github.com/go-playground/validator/v10"
@@ -39,8 +37,4 @@ func init() {
 		DB:        db,
 		Validator: validate,
 	})
-
-	migrator.Drop(db, log, viperCfg)
-	migrator.Create(db, log)
-	seeder.Seed(db, log)
 }

@@ -47,7 +47,7 @@ func TestRegister(t *testing.T) {
 					testProps["request_password"])
 			request := newRequest(fiber.MethodPost, registerUrl, requestBody)
 
-			response, err := app.Test(request)
+			response, err := app.Test(request, -1)
 			require.Nil(t, err)
 			require.Equal(t, testProps["expected_code"], response.StatusCode)
 
